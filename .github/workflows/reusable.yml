@@ -2,12 +2,16 @@ name: reusable
 on:
   workflow_call:
     inputs:
-      tag: { type: string, required: true }
+      tag:
+        type: string
+        required: true
     secrets:
-      TOK: { required: false }
+      TOK:
+        required: false
 jobs:
   r:
     runs-on: ubuntu-latest
     steps:
-      - shell: bash
-        run: echo "tag=${{ inputs.tag }} secret-empty=${{ secrets.TOK == '' }}"
+      - name: Echo
+        shell: bash
+        run: echo "tag=${{ inputs.tag }}"

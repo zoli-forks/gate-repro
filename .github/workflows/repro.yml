@@ -4,27 +4,37 @@ on:
 jobs:
   reusable-plain:
     uses: ./.github/workflows/reusable.yml
-    with: { tag: plain }
+    with:
+      tag: plain
   reusable-secret:
     uses: ./.github/workflows/reusable.yml
-    with: { tag: secret }
+    with:
+      tag: secret
     secrets:
       TOK: ${{ secrets.NONEXISTENT_SECRET }}
   reusable-matrix:
     strategy:
       fail-fast: false
-      matrix: { x: [1, 2] }
+      matrix:
+        x: [1, 2]
     uses: ./.github/workflows/reusable.yml
-    with: { tag: matrix-${{ matrix.x }} }
+    with:
+      tag: matrix
   composite:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/comp
-        with: { tag: composite, tok: ${{ secrets.NONEXISTENT_SECRET }} }
+        with:
+          tag: composite
+          tok: ${{ secrets.NONEXISTENT_SECRET }}
   gate:
     if: ${{ always() }}
-    needs: [reusable-plain, reusable-secret, reusable-matrix, composite]
+    needs:
+      - reusable-plain
+      - reusable-secret
+      - reusable-matrix
+      - composite
     runs-on: ubuntu-latest
     steps:
       - name: Dump needs
