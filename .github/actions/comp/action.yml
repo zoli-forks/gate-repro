@@ -1,0 +1,10 @@
+name: comp
+description: composite equivalent of the reusable workflow
+inputs:
+  tag: { required: true }
+  tok: { required: false, default: '' }
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: echo "tag=${{ inputs.tag }} tok-empty=${{ inputs.tok == '' }}"
