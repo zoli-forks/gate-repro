@@ -20,6 +20,10 @@ jobs:
     uses: ./.github/workflows/reusable.yml
     with:
       tag: matrix
+  reusable-garnet:
+    uses: ./.github/workflows/reusable-garnet.yml
+    secrets:
+      TOK: ${{ secrets.NONEXISTENT_SECRET }}
   composite:
     runs-on: ubuntu-latest
     steps:
@@ -34,6 +38,7 @@ jobs:
       - reusable-plain
       - reusable-secret
       - reusable-matrix
+      - reusable-garnet
       - composite
     runs-on: ubuntu-latest
     steps:

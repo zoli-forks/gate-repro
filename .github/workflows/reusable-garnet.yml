@@ -1,0 +1,16 @@
+name: reusable-garnet
+on:
+  workflow_call:
+    secrets:
+      TOK:
+        required: false
+jobs:
+  r:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: garnet-org/action@2b7fc9d79b54f551b43358c27424a36064b3e078 # v2
+        with:
+          api_token: ${{ secrets.TOK }}
+      - shell: bash
+        run: echo "after garnet"
